@@ -1,0 +1,50 @@
+﻿@model ME.Account.Web.Models.api.TransactionResponse
+
+<h2>
+    Transactions
+</h2>
+
+<div>
+    <h4>Customer Info</h4>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Customer.Id, "Customer ID: ")
+        @Html.TextBoxFor(model => model.Customer.Id, htmlAttributes: new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(model => model.Customer.Name, "Name: ")
+        @Html.TextBoxFor(model => model.Customer.Name, htmlAttributes: new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(model => model.Customer.Surname, "Surname")
+        @Html.TextBoxFor(model => model.Customer.Surname, htmlAttributes: new { @class = "form-control" })
+    </div>
+
+    <h4 class="modal-title">History</h4>
+    <div class="form-group">
+        <table class="table">
+            <thead class="table-responsive">
+                <tr>
+                    <th>Id</th>
+                    <th>AccountNo</th>
+                    <th>Amount</th>
+                    <th>Transaction date</th>
+                </tr>
+            </thead>
+             @foreach (var item in Model.Transactions)
+             {
+                 <tr>
+                     <td>
+                         @item.Id
+                     </td>
+                     <td>
+                         @item.AccountNo
+                     </td>
+                     <td>
+                         @item.Amount
+                     </td>
+                     <td>
+                         @item.transDate
+                     </td>
+                 </tr>
+             }
+        </table>
+    </div>
+</div>
