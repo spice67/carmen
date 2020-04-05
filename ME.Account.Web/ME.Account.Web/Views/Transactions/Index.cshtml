@@ -19,6 +19,7 @@
 
     <h4 class="modal-title">History</h4>
     <div class="form-group">
+
         <table class="table">
             <thead class="table-responsive">
                 <tr>
@@ -28,23 +29,35 @@
                     <th>Transaction date</th>
                 </tr>
             </thead>
-             @foreach (var item in Model.Transactions)
-             {
-                 <tr>
-                     <td>
-                         @item.Id
-                     </td>
-                     <td>
-                         @item.AccountNo
-                     </td>
-                     <td>
-                         @item.Amount
-                     </td>
-                     <td>
-                         @item.transDate
-                     </td>
-                 </tr>
-             }
+
+            @foreach (var item in Model.Transactions)
+            {
+                <tr>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.AccountNo
+                    </td>
+                    <td>
+                        @item.Amount
+                    </td>
+                    <td>
+                        @item.transDate
+                    </td>
+                </tr>
+            }
+
+            <tfoot class="table-striped">
+                <tr>
+                    <th>Balance</th>
+                </tr>
+                <tr>
+                    <td>
+                        @ViewBag.Balance
+                    </td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </div>

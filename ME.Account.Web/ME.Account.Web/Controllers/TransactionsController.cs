@@ -16,6 +16,16 @@ namespace ME.Account.Web.Controllers
         public ActionResult Index(CustomerAccount customerAccount)
         {
             var transResponse = transactionInfoService.GetCustomerTransInfo(customerAccount.CustomerId, DateTime.Now, DateTime.Now);
+
+            double balance = 0;
+
+            foreach (var item in transResponse.Transactions)
+            {
+                balance = balance + item.Amount;
+            }
+
+            ViewBag.Balance = balance;
+
             return View(transResponse);
         }
     }

@@ -18,7 +18,7 @@ namespace ME.Account.Web.Core.Business
         {
             var customerAccount = _customerAccountRepo.Get(customerId);
 
-            if ((customerAccount != null) && (initialAmount > 0))
+            if (customerAccount != null) 
             {
                 string transId = String.Format("TRAN_{0}", Guid.NewGuid().ToString());
                 _transactionRepo.Add(new Transaction()
