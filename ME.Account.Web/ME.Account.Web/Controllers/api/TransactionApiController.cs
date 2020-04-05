@@ -24,19 +24,31 @@ namespace ME.Account.Web.Controllers.api
         {
             return GetHttpResponse(request, () =>
             {
-                var transResponse = _transactionInfoService.GetCustomerTransInfo(customerId, DateTime.Now, DateTime.Now);
+                var customerInfo = _transactionInfoService.GetCustomerTransInfo(customerId, DateTime.Now, DateTime.Now);
 
-                if (transResponse == null)
+                if (customerInfo == null)
                 {
                     return Content(HttpStatusCode.InternalServerError, "Error getting customer information!");
                 }
 
-                if (transResponse.Customer==null)
+                if (customerInfo.Customer==null)
                 {
                     return Content(HttpStatusCode.NotFound, String.Format("Customer {0} not found!", customerId));
                 }
 
-                return Ok(transResponse);
+                double balance = 0.0;
+                foreach (var item in customerInfo.Transactions)
+                {
+                    balance = balance + item.Amount;
+                }
+
+                dynamic result = new
+                {
+                    customerInfo,
+                    balance
+                };
+
+                return Ok(result);
             });
         }
     }
