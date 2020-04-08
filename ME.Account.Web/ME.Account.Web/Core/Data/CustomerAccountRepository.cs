@@ -4,10 +4,15 @@ using System.Collections;
 using System.Linq;
 using System.Web;
 using ME.Account.Web.Models.api;
+using Core.Common.Contracts;
 
 namespace ME.Account.Web.Core.Data
 {
-    public class CustomerAccountRepository : DataRepositoryBase<CustomerAccount>
+    public interface ICustomerAccountRepository : IDataRepository<CustomerAccount>
+    {
+    }
+
+    public class CustomerAccountRepository : DataRepositoryBase<CustomerAccount>, ICustomerAccountRepository
     {
         protected override CustomerAccount AddEntity(Hashtable entityContext, CustomerAccount entity)
         {

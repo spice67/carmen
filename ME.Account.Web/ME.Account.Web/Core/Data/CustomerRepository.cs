@@ -5,10 +5,15 @@ using System.Linq;
 using System.Web;
 using System.Collections;
 using Newtonsoft.Json;
+using Core.Common.Contracts;
 
 namespace ME.Account.Web.Core.Data
 {
-    public class CustomerRepository : DataRepositoryBase<Customer>
+    public interface ICustomerRepository : IDataRepository<Customer>
+    {
+    }
+
+    public class CustomerRepository : DataRepositoryBase<Customer>, ICustomerRepository
     {
         protected override Customer AddEntity(Hashtable entityContext, Customer entity)
         {

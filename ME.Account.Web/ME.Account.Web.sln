@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ME.Account.Web", "ME.Account.Web\ME.Account.Web.csproj", "{543700AE-AE75-4A5E-83CA-C2DD0C6038D8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ME.Account.Web.Tests", "ME.Account.Web.Tests\ME.Account.Web.Tests.csproj", "{E420A84B-AC69-45DE-B649-DB7AA5B88F6E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6C28D7A3-7D6A-407B-BB9A-73BA1AD3F864}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +26,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FBAB4A20-2793-42B6-A7D5-A2F7187967AB}
 	EndGlobalSection
 EndGlobal

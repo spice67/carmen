@@ -5,10 +5,16 @@ using System.Linq;
 using System.Web;
 using System.Collections;
 using Newtonsoft.Json;
+using Core.Common.Contracts;
 
 namespace ME.Account.Web.Core.Data
 {
-    public class TransactionRepository : DataRepositoryBase<Transaction>
+    public interface ITransactionRepository : IDataRepository<Transaction>
+    {
+
+    }
+
+    public class TransactionRepository : DataRepositoryBase<Transaction>, ITransactionRepository
     {
         protected override Transaction AddEntity(Hashtable entityContext, Transaction entity)
         {
