@@ -20,9 +20,9 @@ namespace ME.Account.Web.Controllers.api
 
         [HttpGet]
         [Route("api/transactions/{customerId}")]
-        public IHttpActionResult GetCustomerInfo(HttpRequestMessage request, string customerId)
+        public IHttpActionResult GetCustomerInfo(string customerId)
         {
-            return GetHttpResponse(request, () =>
+            return GetHttpResponse(null,() =>
             {
                 var customerInfo = _transactionInfoService.GetCustomerTransInfo(customerId, DateTime.Now, DateTime.Now);
 

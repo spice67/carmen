@@ -21,9 +21,9 @@ namespace ME.Account.Web.Controllers.api
 
         [HttpPost]
         [Route("api/customers")]
-        public IHttpActionResult CreateCustomerAccount(HttpRequestMessage request, [FromBody] CustomerRequest custReq)
+        public IHttpActionResult CreateCustomerAccount([FromBody] CustomerRequest custReq)
         {
-            return GetHttpResponse(request, () =>
+            return GetHttpResponse(null, () =>
             {
                 var customerAccount = _customerInfoService.RegisterAmount(custReq.customerId, custReq.initialCredit);
 
