@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Core\MefAPIDependencyResolver.cs" />
+    <Compile Remove="Core\MefDependencyResolver.cs" />
+    <Compile Remove="Core\MefExtensions.cs" />
+    <Compile Remove="Core\UsesDisposableServiceAttribute.cs" />
+    <Compile Remove="Core\ViewControllerBase.cs" />
+    <Compile Remove="Core\ViewRenderer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+
+</Project>
