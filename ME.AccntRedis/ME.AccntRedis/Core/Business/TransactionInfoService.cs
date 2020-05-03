@@ -12,9 +12,18 @@ namespace ME.Account.Web.Core.Business
 {
     public class TransactionInfoService : ITransactionInfoService
     {
-        private IDataRepository<Customer> _customerRepo = new CustomerRepository();
-        private IDataRepository<CustomerAccount> _customerAccountRepo = new CustomerAccountRepository();
-        private IDataRepository<Transaction> _transactionRepo = new TransactionRepository();
+        private IDataRepository<Customer> _customerRepo;
+        private IDataRepository<CustomerAccount> _customerAccountRepo;
+        private IDataRepository<Transaction> _transactionRepo;
+
+        public TransactionInfoService(ICustomerRepository customerRepository, ICustomerAccountRepository customerAccountRepository, 
+            ITransactionRepository transactionRepository)
+        {
+            _customerRepo = customerRepository;
+            _customerAccountRepo = customerAccountRepository;
+            _transactionRepo = transactionRepository;
+        }
+
         public TransactionResponse GetCustomerTransInfo(string customerId, DateTime transactionStart, DateTime transactionEnd)
         {
             var transactionResponse = new TransactionResponse();
