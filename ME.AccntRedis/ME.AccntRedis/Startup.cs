@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ME.AccntRedis.Contracts;
+using ME.AccntRedis.Data;
 using ME.Account.Web.Core.Business;
 using ME.Account.Web.Core.Contracts;
 using Microsoft.AspNetCore.Builder;
@@ -28,9 +29,29 @@ namespace ME.AccntRedis
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient(typeof(ICustomerRepository), typeof(CustomerRepository));
+            services.AddTransient(typeof(ICustomerAccountRepository), typeof(CustomerAccountRepository));
+            services.AddTransient(typeof(ITransactionRepository), typeof(TransactionRepository));
             services.AddTransient(typeof(ICustomerInfoService), typeof(CustomerInfoService));
             services.AddTransient(typeof(ITransactionInfoService), typeof(TransactionInfoService));
             services.AddControllers();
+
+            services.AddSwaggerDocument(config =>
+            {
+                config.PostProcess = document =>
+                {
+                    document.Info.Version = "v1";
+                    document.Info.Title = "Customer Account API";
+                    document.Info.Description = "A simple api for account crediting";
+                    document.Info.TermsOfService = "None";
+                    document.Info.Contact = new NSwag.OpenApiContact
+                    {
+                        Name = "Spice67",
+                        Email = "spice@coolbox.se",
+                        Url = string.Empty
+                    };
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +72,9 @@ namespace ME.AccntRedis
             {
                 endpoints.MapControllers();
             });
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
         }
     }
 }

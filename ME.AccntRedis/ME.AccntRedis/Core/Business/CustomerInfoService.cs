@@ -12,8 +12,14 @@ namespace ME.Account.Web.Core.Business
 {
     public class CustomerInfoService : ICustomerInfoService
     {
-        private IDataRepository<CustomerAccount> _customerAccountRepo = new CustomerAccountRepository();
-        private IDataRepository<Transaction> _transactionRepo = new TransactionRepository();
+        private IDataRepository<CustomerAccount> _customerAccountRepo;
+        private IDataRepository<Transaction> _transactionRepo;
+
+        public CustomerInfoService(ICustomerAccountRepository customerAccountRepository, ITransactionRepository transactionRepository)
+        {
+            _customerAccountRepo = customerAccountRepository;
+            _transactionRepo = transactionRepository;
+        }
 
         public CustomerAccount RegisterAmount(string customerId, double initialAmount = 0)
         {
