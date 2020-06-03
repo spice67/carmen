@@ -7,6 +7,8 @@ using System.Collections;
 using Newtonsoft.Json;
 using Core.Common.Contracts;
 using ME.AccntRedis.Data.Hash;
+using Common.Core.Contracts;
+using StackExchange.Redis;
 
 namespace ME.AccntRedis.Data
 {
@@ -17,40 +19,83 @@ namespace ME.AccntRedis.Data
 
     public class TransactionRepository : DataRepositoryBase<Transaction>, ITransactionRepository
     {
-        protected override Transaction AddEntity(Hashtable entityContext, Transaction entity)
+        public TransactionRepository(IRedisContext ctx) : base(ctx)
         {
-            string transactionObject = entity.ToJson();
 
-            entityContext.Add(entity.Id, transactionObject);
+        }
+
+         protected override Transaction AddEntity(RedisContext entityContext, Transaction entity)
+        {
+            string transactionObj = entity.ToJson();
+            entityContext.GetDb().HashSet(entity.AccountNo, entity.Id, transactionObj);
 
             return entity;
         }
 
-        protected override IEnumerable<Transaction> GetEntities(Hashtable entityContext)
+        protected override IEnumerable<Transaction> GetEntities(RedisContext entityContext, string k)
         {
-            var transactions = new List<Transaction>();
+            var trans = entityContext.GetDb().HashGetAll(k);
 
-            var _enum = entityContext.GetEnumerator();
-            while (_enum.MoveNext())
+            List<Transaction> lt = new List<Transaction>();
+            foreach (var item in trans)
             {
-                if ( ((string)_enum.Key).StartsWith("TRAN"))
-                {
-                    var obj = JsonConvert.DeserializeObject<Transaction>((string)_enum.Value);
-                    transactions.Add(obj);
-                }
+                lt.Add(JsonConvert.DeserializeObject<Transaction>(item.Value));
             }
 
-            return transactions;
+            return lt;
+
         }
 
-        protected override Transaction GetEntity(Hashtable entityContext, string id)
+        protected override Transaction GetEntity(RedisContext entityContext, string id)
         {
             throw new NotImplementedException();
         }
 
-        protected override Transaction UpdateEntity(Hashtable entityContext, Transaction entity)
+        protected override Transaction Remove(RedisContext entityContext, Transaction entity)
         {
             throw new NotImplementedException();
         }
+
+        protected override Transaction UpdateEntity(RedisContext entityContext, Transaction entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        //    protected override Transaction AddEntity(Hashtable entityContext, Transaction entity)
+        //    {
+        //        string transactionObject = entity.ToJson();
+
+        //        entityContext.Add(entity.Id, transactionObject);
+
+        //        return entity;
+        //    }
+
+        //    protected override IEnumerable<Transaction> GetEntities(Hashtable entityContext)
+        //    {
+        //        var transactions = new List<Transaction>();
+
+        //        var _enum = entityContext.GetEnumerator();
+        //        while (_enum.MoveNext())
+        //        {
+        //            if ( ((string)_enum.Key).StartsWith("TRAN"))
+        //            {
+        //                var obj = JsonConvert.DeserializeObject<Transaction>((string)_enum.Value);
+        //                transactions.Add(obj);
+        //            }
+        //        }
+
+        //        return transactions;
+        //    }
+
+        //    protected override Transaction GetEntity(Hashtable entityContext, string id)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+
+        //    protected override Transaction UpdateEntity(Hashtable entityContext, Transaction entity)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+
     }
 }

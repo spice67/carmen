@@ -23,7 +23,7 @@ namespace ME.Account.Web.Core.Business
 
         public CustomerAccount RegisterAmount(string customerId, double initialAmount = 0)
         {
-            var customerAccount = _customerAccountRepo.Get(customerId);
+            var customerAccount = _customerAccountRepo.GetSingle(customerId);
 
             if ((customerAccount != null) && (initialAmount != 0))
             {

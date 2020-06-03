@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Common.Core.Contracts;
 using ME.AccntRedis.Contracts;
 using ME.AccntRedis.Data;
 using ME.Account.Web.Core.Business;
@@ -29,11 +30,13 @@ namespace ME.AccntRedis
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(typeof(IRedisContext), typeof(RedisContext));
             services.AddTransient(typeof(ICustomerRepository), typeof(CustomerRepository));
             services.AddTransient(typeof(ICustomerAccountRepository), typeof(CustomerAccountRepository));
             services.AddTransient(typeof(ITransactionRepository), typeof(TransactionRepository));
             services.AddTransient(typeof(ICustomerInfoService), typeof(CustomerInfoService));
             services.AddTransient(typeof(ITransactionInfoService), typeof(TransactionInfoService));
+
             services.AddControllers();
 
             services.AddSwaggerDocument(config =>

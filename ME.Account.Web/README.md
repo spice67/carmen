@@ -2,13 +2,18 @@
 
 This solution built on the MVC concept and uses the VS template (web-api) for that.
 
-No front-end (web controllers) has yet been build to act as client but one can use <a href="https://www.postman.com" target="_blank">postman</a> as client.
-
 To enhance layering, the core business and data contracts where patterns such as repository pattern and implementation is put in a virtual catalog within the project named 'core'. This could have been placed in an external lib but for simplicity, it is done within the same project.
 
 For IoC, unity is used. <a href="https://github.com/unitycontainer/unity" target="_blank">Please refer to this link if interested</a>.
 
 In this exercise, instead of using a concrete data store (i.e. postreg sql, ms sql or other rdms dbs), this solution uses only an in-memory hash table in .net framework which then implements the repository pattern.
+
+When it comes to the cross-cutting or non-functional layer, it is a topic in it's own so is not taken into account within this exercise although the boiler plate from MVC VS is already there.
+
+## Pre-requisites
+To fully understand the concept of the architectural structure below and the codes itself, at least a knowledge of what model-view-controller (MVC) in .net means.
+
+For further reading on the topic, please refer <a href="https://docs.microsoft.com/sv-se/aspnet/core/mvc/overview?view=aspnetcore-3.1">here</a>
 
 ## Architectural overview
 
@@ -18,7 +23,7 @@ In this exercise, instead of using a concrete data store (i.e. postreg sql, ms s
 
 To test on your local machine:
 
-    * Either start the application/project directly from VS2015.
+    * Either start the application/project directly from VS2019.
 
     * Set up in IIS (or environment of choice as long as OS is Windows).
 

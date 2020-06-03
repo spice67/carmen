@@ -28,7 +28,7 @@ namespace ME.Account.Web.Core.Business
         {
             var transactionResponse = new TransactionResponse();
 
-            var customerAccount = _customerAccountRepo.Get(customerId);
+            var customerAccount = _customerAccountRepo.GetSingle(customerId);
 
             if (customerAccount == null)
             {
@@ -36,11 +36,12 @@ namespace ME.Account.Web.Core.Business
                 return transactionResponse;
             }
 
-            transactionResponse.Customer = _customerRepo.Get(customerId);
+            transactionResponse.Customer = _customerRepo.GetSingle(customerId);
 
             //var transactions = _transactionRepo.Get().AsQueryable().Select(x => x.AccountNo == customerAccount.AccountNo);
 
-            transactionResponse.Transactions = _transactionRepo.Get().Where(x => x.AccountNo == customerAccount.AccountNo).ToList();
+            //transactionResponse.Transactions = _transactionRepo.Get(customerId).Where(x => x.AccountNo == customerAccount.AccountNo).ToList();
+            transactionResponse.Transactions = _transactionRepo.Get(customerAccount.AccountNo).ToList();
 
             return transactionResponse;
         }

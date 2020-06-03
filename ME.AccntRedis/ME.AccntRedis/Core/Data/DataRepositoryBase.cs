@@ -1,5 +1,8 @@
-﻿using Core.Common.Contracts;
+﻿using Common.Core.Contracts;
+using Core.Common.Contracts;
 using ME.AccntRedis.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,112 +10,92 @@ namespace ME.AccntRedis.Data.Hash
 {
     public abstract class DataRepositoryBase<T, U> : IDataRepository<T>
                  where T : class, new()
-         where U : Hashtable, new()
+         where U : IRedisContext, new()
     {
-        private static readonly U _hashTable = new U();
+        private readonly IRedisContext _redisContext;
 
-        public static U GetContext()
+        public DataRepositoryBase(U ctx)
         {
-            return _hashTable;
-        }
-
-        public DataRepositoryBase()
-        {
-            // initialize customers and accounts
-            InitializeData();
-        }
-
-        private void InitializeData()
-        {
-            if (_hashTable.Count == 0)
-            {
-                // accounts
-                _hashTable.Add("ACNT0", "CUST12345-67");
-                _hashTable.Add("ACNT1", "CUST12346-77");
-                _hashTable.Add("ACNT2", "CUST12355-68");
-                _hashTable.Add("ACNT3", "CUST12365-87");
-
-                // customer
-                var customer = new Customer()
-                {
-                    Id = "CUST12345-67",
-                    Name = "John",
-                    Surname = "Doe"
-                };
-
-                _hashTable.Add(customer.Id, customer.ToJson());
-
-                customer = new Customer()
-                {
-                    Id = "CUST12346-77",
-                    Name = "Erik",
-                    Surname = "Tolentino"
-                };
-
-                _hashTable.Add(customer.Id, customer.ToJson());
-
-                customer = new Customer()
-                {
-                    Id = "CUST12355-68",
-                    Name = "Sara",
-                    Surname = "Doe"
-                };
-
-                _hashTable.Add(customer.Id, customer.ToJson());
-
-                customer = new Customer()
-                {
-                    Id = "CUST12365-87",
-                    Name = "Inez",
-                    Surname = "Sarmiento"
-                };
-
-                _hashTable.Add(customer.Id, customer.ToJson());
-
-            }
-
+            _redisContext = ctx;
         }
 
         protected abstract T AddEntity(U entityContext, T entity);
 
         protected abstract T UpdateEntity(U entityContext, T entity);
 
-        protected abstract IEnumerable<T> GetEntities(U entityContext);
+        protected abstract IEnumerable<T> GetEntities(U entityContext, string k);
 
         protected abstract T GetEntity(U entityContext, string id);
 
+        protected abstract T Remove(U entityContext, T entity);
+
         public T Add(T entity)
         {
-            return AddEntity(_hashTable, entity);
-        }
-
-        public IEnumerable<T> Get()
-        {
-            return GetEntities(_hashTable);
-        }
-
-        public T Get(string id)
-        {
-            return GetEntity(_hashTable, id);
-        }
-
-        public void Remove(int id)
-        {
-            _hashTable.Remove(id);
+            return AddEntity((U)_redisContext, entity);
         }
 
         public void Remove(T entity)
         {
+            Remove((U)_redisContext, entity);
+        }
 
+        public void Remove(int id)
+        {
+            throw new System.NotImplementedException();
         }
 
         public T Update(T entity)
         {
-           return  UpdateEntity(_hashTable, entity);
+            return UpdateEntity((U)_redisContext, entity);
         }
 
+        public IEnumerable<T> Get(string k)
+        {
+            return GetEntities((U)_redisContext, k);
+        }
+
+        public T GetSingle(string id)
+        {
+            return GetEntity((U)_redisContext, id);
+        }
+
+
+        //public T Add(T entity)
+        //{
+        //    return AddEntity(_hashTable, entity);
+        //}
+
+        //public IEnumerable<T> Get()
+        //{
+        //    return GetEntities(_hashTable);
+        //}
+
+        //public T Get(string id)
+        //{
+        //    return GetEntity(_hashTable, id);
+        //}
+
+        //public void Remove(int id)
+        //{
+        //    _hashTable.Remove(id);
+        //}
+
+        //public void Remove(T entity)
+        //{
+
+        //}
+
+        //public T Update(T entity)
+        //{
+        //   return  UpdateEntity(_hashTable, entity);
+        //}
+
     }
-    public abstract class DataRepositoryBase<T> : DataRepositoryBase<T, Hashtable> where T : class, new()
+    public abstract class DataRepositoryBase<T> : DataRepositoryBase<T, RedisContext> where T : class, new()
     {
+        public DataRepositoryBase(IRedisContext ctx) : base((RedisContext)ctx)
+        {
+
+        } 
     }
 }

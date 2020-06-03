@@ -20,8 +20,8 @@ namespace Core.Common.Contracts
 
         T Update(T entity);
 
-        IEnumerable<T> Get();
+        IEnumerable<T> Get(string k);
 
-        T Get(string id);
+        T GetSingle(string id);
     }
 }
