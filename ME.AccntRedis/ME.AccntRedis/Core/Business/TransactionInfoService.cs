@@ -40,7 +40,6 @@ namespace ME.Account.Web.Core.Business
 
             //var transactions = _transactionRepo.Get().AsQueryable().Select(x => x.AccountNo == customerAccount.AccountNo);
 
-            //transactionResponse.Transactions = _transactionRepo.Get(customerId).Where(x => x.AccountNo == customerAccount.AccountNo).ToList();
             transactionResponse.Transactions = _transactionRepo.Get(customerAccount.AccountNo).ToList();
 
             return transactionResponse;
