@@ -1,6 +1,6 @@
 ## Introduction
 
-This solution is a variation of the monolith MVC application as shown [here](https://github.com/spice67/ventura/tree/master/ME.Account.Web).
+This solution is a variation of the monolith MVC application as shown [here](https://github.com/spice67/carmen/tree/master/ME.Account.Web).
 
 This solution is instead built on AspNet.Core Web API app.
 For further reading on the topic, please refer <a href="https://docs.microsoft.com/sv-se/aspnet/core/web-api/?view=aspnetcore-3.1">here</a>.
@@ -19,6 +19,12 @@ When it comes to the cross-cutting or non-functional layer, it is a topic in it'
 
 ## Pre-requisites
 To fully understand the concept of the architectural structure below and the codes itself, at least a knowledge of web api app in aspnet.core is expected.
+
+More on web api aspnet.core <a href="https://docs.microsoft.com/en-us/aspnet/core/web-api/?view=aspnetcore-3.1" target="_blank">here.</a>
+
+For redis installation on your local machine, follow this <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10#install-the-windows-subsystem-for-linux" target="_blank">guide.</a>
+
+This presumes a dev machine for windows and using wsl (windows subsystem for linux). Redis is already installed in most linux machines but the guide even takes you through installing redis in your linux image on windows. ;)
 
 ## Architectural overview
 
