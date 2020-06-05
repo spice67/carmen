@@ -59,37 +59,6 @@ namespace ME.AccntRedis.Data.Hash
             return GetEntity((U)_redisContext, id);
         }
 
-
-        //public T Add(T entity)
-        //{
-        //    return AddEntity(_hashTable, entity);
-        //}
-
-        //public IEnumerable<T> Get()
-        //{
-        //    return GetEntities(_hashTable);
-        //}
-
-        //public T Get(string id)
-        //{
-        //    return GetEntity(_hashTable, id);
-        //}
-
-        //public void Remove(int id)
-        //{
-        //    _hashTable.Remove(id);
-        //}
-
-        //public void Remove(T entity)
-        //{
-
-        //}
-
-        //public T Update(T entity)
-        //{
-        //   return  UpdateEntity(_hashTable, entity);
-        //}
-
     }
     public abstract class DataRepositoryBase<T> : DataRepositoryBase<T, RedisContext> where T : class, new()
     {

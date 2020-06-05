@@ -1,19 +1,24 @@
 ## Introduction
 
-This solution built on the MVC concept and uses the VS template (web-api) for that.
+This solution is a variation of the monolith MVC application as shown [here](https://github.com/spice67/ventura/tree/master/ME.Account.Web).
 
-To enhance layering, the core business and data contracts where patterns such as repository pattern and implementation is put in a virtual catalog within the project named 'core'. This could have been placed in an external lib but for simplicity, it is done within the same project.
+This solution is instead built on AspNet.Core Web API app.
+For further reading on the topic, please refer <a href="https://docs.microsoft.com/sv-se/aspnet/core/web-api/?view=aspnetcore-3.1">here</a>.
 
-For IoC, unity is used. <a href="https://github.com/unitycontainer/unity" target="_blank">Please refer to this link if interested</a>.
+To enhance layering as the previous solution, the core business and data contracts where patterns such as repository pattern and implementation is put in a virtual catalog within the project named 'core'. This could have been placed in an external lib but for simplicity, it is done within the same project.
 
-In this exercise, instead of using a concrete data store (i.e. postreg sql, ms sql or other rdms dbs), this solution uses only an in-memory hash table in .net framework which then implements the repository pattern.
+For IoC, unity is still used. <a href="https://github.com/unitycontainer/unity" target="_blank">Please refer to this link if interested</a>.
 
-When it comes to the cross-cutting or non-functional layer, it is a topic in it's own so is not taken into account within this exercise although the boiler plate from MVC VS is already there.
+In the previous exercise (see link above), an in-memory data store is used. To maintain the architecture, the data store is changed to a more distributed in-memory data store in the form of redis cache. This is also to show maintainable code and structure with a little effort to change to another data repository.
+More on redis cache can be found [here](https://redis.io/).
+
+Furthermore, this solution has a slight separation of concern for the front-end and the back-end.
+See the architectural overview below.
+
+When it comes to the cross-cutting or non-functional layer, it is a topic in it's own so is not taken into account within this exercise although the boiler plate on AspNet.core (web api app) could still be seen.
 
 ## Pre-requisites
-To fully understand the concept of the architectural structure below and the codes itself, at least a knowledge of what model-view-controller (MVC) in .net means.
-
-For further reading on the topic, please refer <a href="https://docs.microsoft.com/sv-se/aspnet/core/mvc/overview?view=aspnetcore-3.1">here</a>
+To fully understand the concept of the architectural structure below and the codes itself, at least a knowledge of web api app in aspnet.core is expected.
 
 ## Architectural overview
 
@@ -22,6 +27,8 @@ For further reading on the topic, please refer <a href="https://docs.microsoft.c
 ## Getting Started
 
 To test on your local machine:
+
+    * Download/clone this repo.
 
     * Either start the application/project directly from VS2019.
 
@@ -118,39 +125,27 @@ Since we are using an in-memory persistent storage the following pre-set up is u
 | ACNT3    | CUST12365-87 |
 
 
-Please refer to *DataRepositoryBase.cs* to see the full set-up.
+The full pre-load of data is now set in *RedisContext.cs*.
 
 In a real-life scenario, this would be the part where we fill-in data with either a migration process from a previous data store (database of choice) or fill-in with pre-req data. Or another probable scenario would be improvement of this impressive :) solution to be able to add customers with their associated accounts... unending possibilities! ;)
 
 ## Build and Test
 
-The solution is built on VS 2019 (.net framework 4.6) and can be directly downloaded and cloned on your own local machine.
+The solution is built on VS 2019 (.netcore 3.01) and can be directly downloaded and cloned on your own local machine.
 
 ## UI
 
-Our simple user interface (UI) consists of two views --- a customer and 
-a transaction view.
+As shown on the architectural view above, the UI is now separated from our api. This would mean that
+anyone who is entitled (this is another topic for authentication and authorization) to consume the api,
+now can build their own UI or perhaps use the api for another type of application.
 
-### Customer view
+However, we still can try and test the api thru its swagger/open api doc as described below.
 
-![](customer.png)
-> The customer view shows two editable text box to fill-in the customer id and the initial credit that would be added to a transaction for this particular customer as shown above.
+## The API itself
 
-> When a customer is found within the table above, the initial edit would then be added to the transaction for the customer as well as within it's account.
+The api itself can still be reach through http(s)://[*yourhost*]/swagger i.e. https://localhost:15751/swagger. However, behind the scenes the library used now no longer swashbuckle but NSwag.
 
-> A balance for the transactions is then shown as below. See even the api above.
-
-
-### Transaction view
-
-![](transactions.png)
-
-## The api itself
-
-The api itself can be reach through http(s)://[*yourhost*]/swagger i.e. https://localhost:15751/swagger.
-
-Behind the scene, in order to view such a nice API doc tool, swashbuckle is used.
-More on swashbuckle can be found [here](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio).
+More on NSwag can be found [here](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-nswag?view=aspnetcore-3.1&tabs=visual-studio).
 
 It should look like below:
 

@@ -61,41 +61,5 @@ namespace ME.AccntRedis.Data
             throw new NotImplementedException();
         }
 
-        //    protected override Transaction AddEntity(Hashtable entityContext, Transaction entity)
-        //    {
-        //        string transactionObject = entity.ToJson();
-
-        //        entityContext.Add(entity.Id, transactionObject);
-
-        //        return entity;
-        //    }
-
-        //    protected override IEnumerable<Transaction> GetEntities(Hashtable entityContext)
-        //    {
-        //        var transactions = new List<Transaction>();
-
-        //        var _enum = entityContext.GetEnumerator();
-        //        while (_enum.MoveNext())
-        //        {
-        //            if ( ((string)_enum.Key).StartsWith("TRAN"))
-        //            {
-        //                var obj = JsonConvert.DeserializeObject<Transaction>((string)_enum.Value);
-        //                transactions.Add(obj);
-        //            }
-        //        }
-
-        //        return transactions;
-        //    }
-
-        //    protected override Transaction GetEntity(Hashtable entityContext, string id)
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-
-        //    protected override Transaction UpdateEntity(Hashtable entityContext, Transaction entity)
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-
     }
 }

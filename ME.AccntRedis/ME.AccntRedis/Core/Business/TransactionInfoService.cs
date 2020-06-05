@@ -33,6 +33,7 @@ namespace ME.Account.Web.Core.Business
             if (customerAccount == null)
             {
                 // return immediately with a nulled customerResponse properties
+                // TODO: Redirect to an error page instead?
                 return transactionResponse;
             }
 
