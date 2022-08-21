@@ -26,7 +26,7 @@ namespace ME.Account.Web.Core.Business
                     AccountNo = customerAccount.AccountNo,
                     Amount = initialAmount,
                     Id = transId,
-                    transDate = DateTime.Now.Date
+                    transDate = DateTime.Now
                 });
             }
             return customerAccount;
