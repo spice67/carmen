@@ -7,7 +7,7 @@ For further reading on the topic, please refer <a href="https://docs.microsoft.c
 
 To enhance layering as the previous solution, the core business and data contracts where patterns such as repository pattern and implementation is put in a virtual catalog within the project named 'core'. This could have been placed in an external lib but for simplicity, it is done within the same project.
 
-For IoC, unity is still used. <a href="https://github.com/unitycontainer/unity" target="_blank">Please refer to this link if interested</a>.
+For IoC, unity is still used. <a href="https://github.com/unitycontainer" target="_blank">Please refer to this link if interested</a>.
 
 In the previous exercise (see link above), an in-memory data store is used. To maintain the architecture, the data store is changed to a more distributed in-memory data store in the form of redis cache. This is also to show maintainable code and structure with a little effort to change to another data repository.
 More on redis cache can be found [here](https://redis.io/docs/getting-started/installation/install-redis-on-windows/).
