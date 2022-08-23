@@ -4,7 +4,7 @@ This solution built on the MVC concept and uses the VS template (web-api) for th
 
 To enhance layering, the core business and data contracts where patterns such as repository pattern and implementation is put in a virtual catalog within the project named 'core'. This could have been placed in an external lib but for simplicity, it is done within the same project.
 
-For IoC, unity is used. <a href="https://github.com/unitycontainer/unity" target="_blank">Please refer to this link if interested</a>.
+For IoC, unity is used. <a href="https://github.com/unitycontainer" target="_blank">Please refer to this link if interested</a>.
 
 In this exercise, instead of using a concrete data store (i.e. postreg sql, ms sql or other rdms dbs), this solution uses only an in-memory hash table in .net framework which then implements the repository pattern.
 
